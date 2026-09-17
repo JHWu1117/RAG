@@ -1,0 +1,126 @@
+# K1 training-dataset build configuration.
+#
+# No credentials here. The teacher API key is read from the environment
+# (OPENAI_API_KEY / DASHSCOPE_API_KEY), sourced from the gitignored .env.local.
+#
+# Retry and abstention are SelfRAGPolicy decisions, not labels, so there is no
+# abstain quota. "Evidence does not support an answer" is captured by the
+# insufficient_evidence task with NOT_SUPPORTED segments and low utility.
+
+schema_version: 1
+dataset_version: "selfrag-v0.1.0"
+
+corpus:
+  # Source snapshot: Tencent annual reports 2022-2025 (public disclosures).
+  root: "data/training/raw/corpus"
+  include: ["*.pdf"]
+  collection: "selfrag_tencent"
+  # One source group per document keeps train/dev/test splits leak-free.
+  group_by: "document"
+
+target:
+  total_samples: 2000
+  # Ratios follow DEV_SPEC_selfrag.md 3.7.1; they are an experiment starting
+  # point, and any change must be recorded in the dataset manifest.
+  task_ratios:
+    grounded_generation: 0.40
+    evidence_relevance: 0.15
+    retrieval_decision: 0.15
+    support_judgment: 0.10
+    utility_judgment: 0.05
+    insufficient_evidence: 0.10
+    query_rewrite: 0.05
+  language_ratios:
+    zh: 1.0
+
+synthetic_queries:
+  prompt_version: "query-generation-v1"
+  max_attempts_per_query: 3
+  query_kind_ratios:
+    factual: 0.35
+    multi_hop: 0.15
+    comparison: 0.15
+    summary: 0.10
+    no_retrieval: 0.15
+    unanswerable: 0.10
+
+retrieval:
+  # Candidates come from the real hybrid pipeline so training and serving see
+  # the same distribution.
+  dense_top_k: 20
+  sparse_top_k: 20
+  fusion_top_k: 10
+  rerank_top_k: 8
+  hard_negatives_per_sample: 3
+  # Hard negatives are same-collection, high-rerank-score, non-supporting chunks.
+  hard_negative_min_rerank_score: 0.3
+
+teacher:
+  # Dedicated offline Teacher chain. Both aliases were verified with a live
+  # completion after the workspace account was reset on 2026-09-08.
+  primary:
+    provider: "openai_compatible"
+    model: "qwen3.8-27b"
+    base_url_env: "OPENAI_BASE_URL"
+    api_key_env: "OPENAI_API_KEY"
+    # Ask the provider to enforce the schema and still validate it locally.
+    # A schema-invalid primary response deterministically activates fallback.
+    native_schema_mode: "json_schema"
+  fallback:
+    provider: "openai_compatible"
+    # The workspace exposes kimi-k2.5 (no kimi-k3 alias); use it when the
+    # preferred Qwen Teacher is unavailable or has exhausted its quota.
+    model: "kimi-k2.5"
+    base_url_env: "OPENAI_BASE_URL"
+    api_key_env: "OPENAI_API_KEY"
+    # JSON-object mode covers schemas outside the provider's strict subset;
+    # BaseTeacher injects the full contract and validates it locally.
+    native_schema_mode: "json_object"
+  labeling:
+    temperature: 0.0
+    # Reasoning-capable models can spend substantial budget before emitting the
+    # final object; 2048 produced an incomplete relevance object in a live run.
+    max_tokens: 4096
+    max_retries: 3
+    concurrency: 8
+    requests_per_minute: 120
+    daily_budget_usd: 20
+    timeout_seconds: 90
+    require_json_schema: true
+    low_confidence_threshold: 0.75
+    # Raw teacher responses are hashed into the sample; full text goes only to
+    # the quarantine store, never into the training set.
+    keep_raw_responses: false
+
+quality:
+  # Executed in order; a sample failing any gate is quarantined, not deleted.
+  gates:
+    - "schema_valid"
+    - "evidence_ids_exist"
+    - "no_retrieve_independent_of_evidence"
+    - "supported_facts_covered_by_citations"
+    - "no_teacher_commonsense_leakage"
+  dedup:
+    minhash_threshold: 0.9
+    embedding_threshold: 0.95
+  contamination:
+    # Never train on anything that appears in the evaluation sets.
+    check_against:
+      - "tests/fixtures/golden_test_set.json"
+      - "tests/fixtures/acceptance_golden_test_set.json"
+
+split:
+  seed: 20260908
+  ratios:
+    train: 0.8
+    dev: 0.1
+    test: 0.1
+  # Grouped by source_group_id: chunks from one document never straddle splits.
+  group_by: "source_group_id"
+
+output:
+  root: "data/training"
+  critic_jsonl: "data/training/critic.jsonl"
+  generator_jsonl: "data/training/generator.jsonl"
+  quarantine_jsonl: "data/training/quarantine.jsonl"
+  manifest: "data/training/manifest.json"

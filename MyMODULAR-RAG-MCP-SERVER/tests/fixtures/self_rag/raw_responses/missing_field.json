@@ -1,0 +1,7 @@
+{
+  "text": "{\"retrieve_decision\": \"retrieve\", \"support\": \"fully_supported\", \"utility\": 4}",
+  "finish_reason": "stop",
+  "logprobs": null,
+  "reasoning_text": null,
+  "provider_metadata": {}
+}

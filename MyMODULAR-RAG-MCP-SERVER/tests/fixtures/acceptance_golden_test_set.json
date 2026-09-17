@@ -1,0 +1,189 @@
+{
+  "description": "Traditional RAG acceptance QA grounded in four supplied 2025 PDF fixtures. Page numbers are one-based PDF pages.",
+  "version": "2026-09-01",
+  "collection": "acceptance_2025_reports",
+  "document_manifest": [
+    {
+      "source": "annual_summary_2025.pdf",
+      "sha256": "a1bc09931297706f7db54872807ae52ea569e8444229261dbe6c11e37755e705",
+      "pages": 14
+    },
+    {
+      "source": "erliusan_2025.pdf",
+      "sha256": "723f559e4b7e8d5958ddedb4cf21fdb43e66794d08d20faa02140e13c804b170",
+      "pages": 135
+    },
+    {
+      "source": "国电电力.pdf",
+      "sha256": "eca0674e887cfd62e2dabbee2ceb37603483437aa2fada927a9856dafded32c2",
+      "pages": 7
+    },
+    {
+      "source": "润本股份.pdf",
+      "sha256": "e0b6da5861ef48441a4187a7647867e9ac33a5d5c714e47a73885b006b7fcaa9",
+      "pages": 3
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "SW-01",
+      "query": "申万宏源在深交所和香港联交所的股票代码分别是什么？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["annual_summary_2025.pdf"],
+      "expected_pages": [3],
+      "reference_answer": "申万宏源在深交所的股票代码是000166，在香港联交所的股票代码是6806。"
+    },
+    {
+      "id": "SW-02",
+      "query": "申万宏源的四个主要业务板块是什么？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["annual_summary_2025.pdf"],
+      "expected_pages": [6],
+      "reference_answer": "四个主要业务板块是企业金融、个人金融、机构服务及交易、投资管理。"
+    },
+    {
+      "id": "SW-03",
+      "query": "申万宏源2025年合并营业收入是多少，较调整后的2024年增长多少？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["annual_summary_2025.pdf"],
+      "expected_pages": [7],
+      "reference_answer": "2025年合并营业收入为24,256,073,184.06元，较调整后的2024年增长30.29%。"
+    },
+    {
+      "id": "SW-04",
+      "query": "申万宏源报告期末持股比例最高的股东是谁，持股比例是多少？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["annual_summary_2025.pdf"],
+      "expected_pages": [10],
+      "reference_answer": "持股比例最高的股东是中国建银投资有限责任公司，持股比例为26.34%。"
+    },
+    {
+      "id": "SW-05",
+      "query": "申万宏源公司债券在报告期内的主体和债券信用评级及展望如何？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["annual_summary_2025.pdf"],
+      "expected_pages": [13],
+      "reference_answer": "主体信用等级和公司债券信用等级均维持AAA，评级展望维持稳定。"
+    },
+    {
+      "id": "NET263-01",
+      "query": "二六三2025年上半年营业收入和归母净利润分别是多少，同比变化多少？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["erliusan_2025.pdf"],
+      "expected_pages": [7],
+      "reference_answer": "营业收入为384,664,450.96元，同比下降17.89%；归母净利润为35,820,088.66元，同比下降30.18%。"
+    },
+    {
+      "id": "NET263-02",
+      "query": "二六三重点布局的三大业务领域是什么？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["erliusan_2025.pdf"],
+      "expected_pages": [9],
+      "reference_answer": "公司重点布局全球网络、智能通信和数字服务三大领域。"
+    },
+    {
+      "id": "NET263-03",
+      "query": "二六三数字化运营体系的故障响应效率和客户服务SLA达到什么水平？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["erliusan_2025.pdf"],
+      "expected_pages": [12],
+      "reference_answer": "故障响应效率提升40%，客户服务SLA达到99.99%。"
+    },
+    {
+      "id": "NET263-04",
+      "query": "二六三在报告中列出的前三项经营风险是什么？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["erliusan_2025.pdf"],
+      "expected_pages": [19],
+      "reference_answer": "前三项风险是技术发展带来的技术革新风险、集团化经营下的管理控制风险和汇率变动风险。"
+    },
+    {
+      "id": "NET263-05",
+      "query": "在其他变量不变时，美元对人民币升值5%对二六三本期利润的税前影响是多少？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["erliusan_2025.pdf"],
+      "expected_pages": [116],
+      "reference_answer": "美元对人民币升值5%对本期利润的税前影响为增加14,812,620.61元。"
+    },
+    {
+      "id": "GDP-01",
+      "query": "国电电力2025年上半年营业收入、归母净利润和扣非归母净利润分别是多少？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["国电电力.pdf"],
+      "expected_pages": [2],
+      "reference_answer": "营业收入776.55亿元，归母净利润36.87亿元，扣非归母净利润34.10亿元。"
+    },
+    {
+      "id": "GDP-02",
+      "query": "国电电力2025年上半年哪类电源发电量同比增幅最高，发电量及增幅是多少？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["国电电力.pdf"],
+      "expected_pages": [3],
+      "reference_answer": "光伏发电量同比增幅最高，发电量为103.35亿千瓦时，同比增长122.55%。"
+    },
+    {
+      "id": "GDP-03",
+      "query": "国电电力2025年上半年前期及基建支出总额及新能源、水电、火电项目分配额分别是多少？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["国电电力.pdf"],
+      "expected_pages": [4],
+      "reference_answer": "前期及基建支出211.91亿元，其中新能源72.24亿元、水电66.28亿元、火电73.04亿元。"
+    },
+    {
+      "id": "GDP-04",
+      "query": "国电电力2025至2027年现金分红规划规定的年度现金分红下限是什么？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["国电电力.pdf"],
+      "expected_pages": [4],
+      "reference_answer": "年度现金分红原则上不低于当年归母净利润的60%，且每股现金红利不低于0.22元人民币（含税）。"
+    },
+    {
+      "id": "GDP-05",
+      "query": "研究报告预测国电电力2025至2027年归母净利润分别是多少，并给出什么评级？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["国电电力.pdf"],
+      "expected_pages": [4],
+      "reference_answer": "预测2025至2027年归母净利润分别为70.50亿元、78.95亿元和87.17亿元，维持“优于大市”评级。"
+    },
+    {
+      "id": "RUNBEN-01",
+      "query": "润本股份2025年上半年营业收入和归母净利润分别是多少，同比增幅是多少？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["润本股份.pdf"],
+      "expected_pages": [1],
+      "reference_answer": "营业收入8.95亿元，同比增长20.31%；归母净利润1.88亿元，同比增长4.16%。"
+    },
+    {
+      "id": "RUNBEN-02",
+      "query": "润本股份2025年上半年新增合作的会员制零售渠道是哪一家？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["润本股份.pdf"],
+      "expected_pages": [1],
+      "reference_answer": "2025年上半年新增与山姆渠道合作。"
+    },
+    {
+      "id": "RUNBEN-03",
+      "query": "润本股份2025年上半年升级或新推出多少款单品，并将护理产品目标受众扩展到哪个群体？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["润本股份.pdf"],
+      "expected_pages": [1],
+      "reference_answer": "升级或新推出40余款单品，并将护理产品目标受众从婴童扩展至青少年。"
+    },
+    {
+      "id": "RUNBEN-04",
+      "query": "润本股份2025年上半年的毛利率、销售费用率和归母净利率分别是多少？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["润本股份.pdf"],
+      "expected_pages": [1],
+      "reference_answer": "毛利率为59.0%，销售费用率为30.2%，归母净利率为20.9%。"
+    },
+    {
+      "id": "RUNBEN-05",
+      "query": "润本股份2025至2027年预测营业收入和每股收益分别是多少？",
+      "expected_chunk_ids": [],
+      "expected_sources": ["润本股份.pdf"],
+      "expected_pages": [2],
+      "reference_answer": "预测营业收入分别为16.45亿元、19.90亿元、23.02亿元，每股收益分别为0.82元、1.01元、1.21元。"
+    }
+  ]
+}

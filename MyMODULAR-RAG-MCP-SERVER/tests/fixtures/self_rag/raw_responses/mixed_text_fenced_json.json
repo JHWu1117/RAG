@@ -1,0 +1,7 @@
+{
+  "text": "Sure, here is my assessment of the retrieved passages.\n\n```json\n{\"answer\": \"BM25 \\u8d1f\\u8d23\\u7a00\\u758f\\u68c0\\u7d22\\u3002\", \"retrieve_decision\": \"retrieve\", \"support\": \"partially_supported\", \"utility\": 3, \"evidence_ids\": [\"chunk_042\"]}\n```\n\nLet me know if you need more detail.",
+  "finish_reason": "stop",
+  "logprobs": null,
+  "reasoning_text": null,
+  "provider_metadata": {}
+}

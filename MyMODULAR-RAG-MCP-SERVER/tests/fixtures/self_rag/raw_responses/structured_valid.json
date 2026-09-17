@@ -1,0 +1,9 @@
+{
+  "text": "{\"answer\": \"\\u5411\\u91cf\\u68c0\\u7d22\\u4f7f\\u7528 HNSW \\u7d22\\u5f15\\u3002\", \"retrieve_decision\": \"retrieve\", \"relevance\": \"relevant\", \"support\": \"fully_supported\", \"utility\": 5, \"evidence_ids\": [\"chunk_001\", \"chunk_002\"], \"scores\": {\"retrieval_probability\": 0.93, \"relevance_probability\": 0.88, \"support_probability\": 0.91, \"utility_distribution\": [0.01, 0.02, 0.07, 0.2, 0.7]}}",
+  "finish_reason": "stop",
+  "prompt_tokens": 812,
+  "completion_tokens": 96,
+  "logprobs": {"<RET_YES>": -0.07257069283, "<RET_NO>": -2.6592600369},
+  "reasoning_text": "INTERNAL-REASONING-PLACEHOLDER must never reach the caller.",
+  "provider_metadata": {"request_id": "req_placeholder_0001", "api_key": "PLACEHOLDER-NOT-A-REAL-KEY"}
+}

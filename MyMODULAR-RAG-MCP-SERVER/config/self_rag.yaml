@@ -1,0 +1,21 @@
+# J1 Reflection Token semantics. Semantic keys are stable; token text may be
+# replaced by a tokenizer manifest in later training/serving tasks.
+#
+# Reflection Tokens express judgements about evidence and generated text only.
+# Control actions (rewrite the query, run another retrieval round, abstain) are
+# decided by SelfRAGPolicy from these judgements plus thresholds and budget, so
+# no RETRY/ABSTAIN token exists.
+schema_version: 1
+reflection_tokens:
+  retrieve: "<RET_YES>"
+  no_retrieve: "<RET_NO>"
+  relevant: "<REL_YES>"
+  irrelevant: "<REL_NO>"
+  fully_supported: "<SUP_FULL>"
+  partially_supported: "<SUP_PARTIAL>"
+  not_supported: "<SUP_NONE>"
+  utility_1: "<UTIL_1>"
+  utility_2: "<UTIL_2>"
+  utility_3: "<UTIL_3>"
+  utility_4: "<UTIL_4>"
+  utility_5: "<UTIL_5>"

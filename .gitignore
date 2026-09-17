@@ -1,0 +1,8 @@
+/.ruff_cache/
+/DeepResearch/
+/deep_research/
+/project_migration/
+
+# Temporarily renamed nested Git metadata; never upload it.
+/MODULAR-RAG-MCP-SERVER/.git-local-backup/
+/MyMODULAR-RAG-MCP-SERVER/.git-local-backup/

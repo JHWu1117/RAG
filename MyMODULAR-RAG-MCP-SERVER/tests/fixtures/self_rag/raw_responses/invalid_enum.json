@@ -1,0 +1,7 @@
+{
+  "text": "{\"answer\": \"placeholder\", \"retrieve_decision\": \"maybe_retrieve\", \"support\": \"fully_supported\"}",
+  "finish_reason": "stop",
+  "logprobs": null,
+  "reasoning_text": null,
+  "provider_metadata": {}
+}

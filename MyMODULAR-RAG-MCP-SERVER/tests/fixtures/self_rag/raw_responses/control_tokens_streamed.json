@@ -1,0 +1,13 @@
+{
+  "chunks": [
+    "<RET",
+    "_YES>",
+    "HNSW ",
+    "索引支持近似最近邻检索。",
+    "<REL",
+    "_YES><SUP_FU",
+    "LL><UTIL_4>"
+  ],
+  "logprobs": {"<RET_YES>": -0.10536051565, "<RET_NO>": -2.3025850929},
+  "expected_answer": "HNSW 索引支持近似最近邻检索。"
+}

@@ -1,0 +1,7 @@
+{
+  "text": "<RET_YES>混合了两种互斥的检索决策。<RET_NO>",
+  "finish_reason": "stop",
+  "logprobs": null,
+  "reasoning_text": null,
+  "provider_metadata": {}
+}
